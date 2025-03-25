@@ -11,4 +11,5 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),  # Logout page
     path('tasks/', views.task_list, name='task_list'),  # View all tasks
     path('tasks/edit/<int:task_id>/', views.edit_task, name='edit_task'),  # Edit task URL
+    path('tasks/delete/<int:task_id>/', views.delete_task, name='delete_task'),  # Added delete task URL
 ]

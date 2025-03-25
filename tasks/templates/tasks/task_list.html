@@ -15,7 +15,7 @@
                 <th>Description</th>
                 <th>Status</th>
                 <th>Created At</th>
-                <th>Actions</th> <!-- Added Actions column for Edit button -->
+                <th>Actions</th> <!-- Added Actions column for Edit and Delete buttons -->
             </tr>
         </thead>
         <tbody>
@@ -31,7 +31,10 @@
                     {% endif %}
                 </td>
                 <td>{{ task.created_at }}</td>
-                <td><a href="{% url 'tasks:edit_task' task.id %}">✏️ Edit</a></td> <!-- Added Edit link -->
+                <td>
+                    <a href="{% url 'tasks:edit_task' task.id %}">✏️ Edit</a> |
+                    <a href="{% url 'tasks:delete_task' task.id %}">🗑️ Delete</a> <!-- Added Delete link -->
+                </td>
             </tr>
             {% empty %}
             <tr>

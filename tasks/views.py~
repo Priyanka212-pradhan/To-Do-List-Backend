@@ -87,15 +87,3 @@ def edit_task(request, task_id):
         form = TaskForm(instance=task)
 
     return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
-
-def delete_task(request, task_id):
-    # Get the task by ID or return a 404 error if not found
-    task = get_object_or_404(Task, id=task_id)
-
-    # Check if the request is a POST (to prevent accidental deletion)
-    if request.method == 'POST':
-        task.delete()  # Delete the task from the database
-        messages.success(request, 'Task deleted successfully!')
-        return redirect('tasks:task_list')  # Redirect to the task list page after deletion
-
-    return render(request, 'tasks/confirm_delete.html', {'task': task})  # Render a confirmation page
