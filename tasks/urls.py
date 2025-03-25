@@ -8,4 +8,5 @@ urlpatterns = [
     path('', views.register, name='home'),  # Add this line to handle the root URL
     path('login/', views.user_login, name='login'),
     path('create/', views.create_task, name='create_task'),
+    path('logout/', views.user_logout, name='logout'),  # Logout page
 ]
