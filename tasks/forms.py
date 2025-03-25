@@ -1,6 +1,7 @@
 # tasks/forms.py
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
@@ -18,3 +19,7 @@ class RegistrationForm(forms.ModelForm):
         if password != confirm_password:
             raise forms.ValidationError("Passwords do not match")
         return cleaned_data
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(max_length=254, required=True)
+    password = forms.CharField(widget=forms.PasswordInput, required=True)
