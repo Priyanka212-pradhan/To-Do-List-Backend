@@ -3,6 +3,8 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 
+from tasks.models import Task
+
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -17,3 +19,11 @@ class RegistrationForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     # The AuthenticationForm already contains the `username` and `password` fields, so you don't need to redefine them.
     pass
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title', 'description', 'due_date']
+        widgets = {
+            'due_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
