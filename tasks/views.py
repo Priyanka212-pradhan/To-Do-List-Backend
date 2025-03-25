@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import RegistrationForm, LoginForm, TaskForm
@@ -73,3 +73,17 @@ def user_logout(request):
 def task_list(request):
     tasks = Task.objects.filter(user=request.user)  # Fetch tasks for the logged-in user
     return render(request, 'tasks/task_list.html', {'tasks': tasks})
+
+
+@login_required
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user=request.user)  # Ensure task belongs to the user
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('tasks:task_list')  # Redirect to the task list page after editing
+    else:
+        form = TaskForm(instance=task)
+
+    return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
