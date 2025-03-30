@@ -26,8 +26,11 @@ class LoginView(generics.GenericAPIView):
         user = authenticate(username=username, password=password)
 
         if user is not None:
-            serializer = self.get_serializer(user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            refresh = RefreshToken.for_user(user)  # Generate JWT tokens
+            return Response({
+                "refresh": str(refresh),  # Refresh token
+                "access": str(refresh.access_token)  # Access token
+            }, status=status.HTTP_200_OK)
         return Response({"error": "Invalid Credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
 # Logout user by blacklisting the token
