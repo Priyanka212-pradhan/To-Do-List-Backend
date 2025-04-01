@@ -115,6 +115,7 @@ elif ENVIRONMENT == 'production':
             'HOST': os.getenv('DB_HOST'),
             'PORT': os.getenv('DB_PORT'),
             'URL': os.getenv('DB_URL'),
+            'sslmode': 'require',
 
         }
     }
