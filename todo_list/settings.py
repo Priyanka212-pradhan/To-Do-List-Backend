@@ -114,6 +114,8 @@ elif ENVIRONMENT == 'production':
             'PASSWORD': os.getenv('DB_PASSWORD'),
             'HOST': os.getenv('DB_HOST'),
             'PORT': os.getenv('DB_PORT'),
+            'URL': os.getenv('DB_URL'),
+
         }
     }
 
